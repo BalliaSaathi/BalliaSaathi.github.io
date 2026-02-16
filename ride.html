@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ride Booking</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{font-family:system-ui;background:#f0fdf4;padding:20px}
+input{width:100%;padding:12px;margin:10px 0;border-radius:8px}
+button{background:#16a34a;color:white;padding:14px;border:none;width:100%;font-size:18px;border-radius:12px}
+</style>
+</head>
+<body>
+
+<h2>Ride Booking</h2>
+
+<input id="from" placeholder="Pickup location">
+<input id="to" placeholder="Drop location">
+
+<button onclick="ride()">Book Ride</button>
+
+<script>
+function ride(){
+let f=document.getElementById("from").value;
+let t=document.getElementById("to").value;
+let msg="Ride Booking:%0APickup: "+f+"%0ADrop: "+t;
+window.location="https://wa.me/919580009550?text="+msg;
+}
+</script>
+
+</body>
+</html>

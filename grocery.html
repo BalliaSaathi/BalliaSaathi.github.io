@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Grocery Order</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{font-family:system-ui;background:#f0fdf4;padding:20px}
+h2{text-align:center}
+.item{background:white;margin:10px;padding:12px;border-radius:10px}
+button{background:#16a34a;color:white;padding:14px;border:none;width:100%;font-size:18px;border-radius:12px;margin-top:15px}
+</style>
+</head>
+<body>
+
+<h2>Grocery Select Kare</h2>
+
+<div class="item"><input type="checkbox" value="Milk 1L"> Milk</div>
+<div class="item"><input type="checkbox" value="Bread"> Bread</div>
+<div class="item"><input type="checkbox" value="Rice 5kg"> Rice</div>
+<div class="item"><input type="checkbox" value="Aata 5kg"> Aata</div>
+<div class="item"><input type="checkbox" value="Sugar 1kg"> Sugar</div>
+<div class="item"><input type="checkbox" value="Oil 1L"> Oil</div>
+<div class="item"><input type="checkbox" value="Eggs 12"> Eggs</div>
+<div class="item"><input type="checkbox" value="Potato 1kg"> Potato</div>
+<div class="item"><input type="checkbox" value="Onion 1kg"> Onion</div>
+
+<input id="addr" placeholder="Apna address likhe" style="width:100%;padding:12px;margin-top:15px;border-radius:8px">
+
+<button onclick="order()">Order on WhatsApp</button>
+
+<script>
+function order(){
+let items="";
+document.querySelectorAll('input[type=checkbox]:checked').forEach(e=>items+=e.value+", ");
+let addr=document.getElementById("addr").value;
+let msg="Grocery Order:%0AItems: "+items+"%0AAddress: "+addr;
+window.location="https://wa.me/919580009550?text="+msg;
+}
+</script>
+
+</body>
+</html>
