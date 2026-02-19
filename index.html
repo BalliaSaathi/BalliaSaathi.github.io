@@ -1,58 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Ballia Saathi</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ballia Saathi</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- 🔝 Top Navbar -->
-  <header class="navbar">
-    <div class="menu-icon">☰</div>
+<!-- ===== NAVBAR ===== -->
+<header class="navbar">
+  <div class="logo">Ballia Saathi</div>
 
-    <div class="right-nav">
-      <input type="text" id="search" placeholder="Search items...">
-      <button class="support-btn">Support</button>
-      <div class="cart">
-        🛒 <span id="cart-count">0</span>
-      </div>
+  <div class="nav-right">
+    <input type="text" placeholder="Search products..." id="search">
+    <div class="cart-icon" onclick="toggleCart()">
+      🛒 <span id="cart-count">0</span>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- 🛍️ Product Section -->
-  <main class="products" id="product-list">
+<!-- ===== PRODUCT GRID ===== -->
+<section class="product-grid" id="product-list">
 
-    <!-- Sample Product Card -->
-    <div class="product-card" data-name="Aalu" data-price="20">
-      <h3>Aalu</h3>
-      <p>₹20 / kg</p>
-
-      <div class="quantity">
-        <button class="minus">-</button>
-        <span class="qty">1</span>
-        <button class="plus">+</button>
-      </div>
-
-      <button class="add-to-cart">Add to Cart</button>
+  <div class="product-card" data-name="Aalu" data-price="20">
+    <img src="https://via.placeholder.com/200" />
+    <h3>Aalu</h3>
+    <p class="price">₹20/kg</p>
+    <div class="qty-box">
+      <button class="minus">-</button>
+      <span class="qty">1</span>
+      <button class="plus">+</button>
     </div>
+    <button class="add-btn">Add to Cart</button>
+  </div>
 
-    <div class="product-card" data-name="Dudh" data-price="50">
-      <h3>Dudh</h3>
-      <p>₹50 / litre</p>
-
-      <div class="quantity">
-        <button class="minus">-</button>
-        <span class="qty">1</span>
-        <button class="plus">+</button>
-      </div>
-
-      <button class="add-to-cart">Add to Cart</button>
+  <div class="product-card" data-name="Dudh" data-price="50">
+    <img src="https://via.placeholder.com/200" />
+    <h3>Dudh</h3>
+    <p class="price">₹50/litre</p>
+    <div class="qty-box">
+      <button class="minus">-</button>
+      <span class="qty">1</span>
+      <button class="plus">+</button>
     </div>
+    <button class="add-btn">Add to Cart</button>
+  </div>
 
-  </main>
+</section>
 
-  <script src="script.js"></script>
+<!-- ===== FLOATING CART BUTTON ===== -->
+<div class="floating-cart" onclick="toggleCart()">
+  🛒 View Cart (<span id="bottom-cart-count">0</span>)
+</div>
+
+<!-- ===== CART POPUP ===== -->
+<div class="cart-popup" id="cartPopup">
+  <h2>Your Cart</h2>
+  <div id="cart-items"></div>
+  <h3>Total: ₹<span id="total-price">0</span></h3>
+  <button onclick="goToOrder()">Order Now</button>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
