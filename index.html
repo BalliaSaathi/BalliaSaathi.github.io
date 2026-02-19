@@ -1,57 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Ballia Saathi</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-body{margin:0;font-family:system-ui;background:#ecfdf5;text-align:center}
-.hero{height:100vh;background:linear-gradient(135deg,#16a34a,#22c55e);color:white;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative}
-h1{font-size:48px;margin:0}
-.tag{margin:10px}
-
-.scooter{
-position:absolute;
-bottom:70px;
-right:-200px;
-font-size:60px;
-animation:ride 8s linear infinite;
-}
-
-@keyframes ride{
-0%{right:-200px}
-100%{right:110%}
-}
-
-.btn{
-display:block;
-width:240px;
-margin:12px;
-padding:16px;
-background:white;
-color:#16a34a;
-text-decoration:none;
-font-size:20px;
-border-radius:14px;
-font-weight:bold;
-box-shadow:0 6px 18px rgba(0,0,0,.2);
-}
-
-.btn:hover{transform:scale(1.08)}
-</style>
+  <meta charset="UTF-8">
+  <title>Ballia Saathi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="hero">
-<h1>Ballia Saathi 🛵</h1>
-<div class="tag">Ballia ka apna delivery saathi</div>
+  <!-- 🔝 Top Navbar -->
+  <header class="navbar">
+    <div class="menu-icon">☰</div>
 
-<a class="btn" href="grocery.html">🛒 Grocery Order</a>
-<a class="btn" href="ride.html">🏍 Ride / Pickup</a>
-<a class="btn" href="parcel.html">📦 Send Parcel</a>
+    <div class="right-nav">
+      <input type="text" id="search" placeholder="Search items...">
+      <button class="support-btn">Support</button>
+      <div class="cart">
+        🛒 <span id="cart-count">0</span>
+      </div>
+    </div>
+  </header>
 
-<div class="scooter">🛵💨</div>
-</div>
+  <!-- 🛍️ Product Section -->
+  <main class="products" id="product-list">
 
+    <!-- Sample Product Card -->
+    <div class="product-card" data-name="Aalu" data-price="20">
+      <h3>Aalu</h3>
+      <p>₹20 / kg</p>
+
+      <div class="quantity">
+        <button class="minus">-</button>
+        <span class="qty">1</span>
+        <button class="plus">+</button>
+      </div>
+
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+
+    <div class="product-card" data-name="Dudh" data-price="50">
+      <h3>Dudh</h3>
+      <p>₹50 / litre</p>
+
+      <div class="quantity">
+        <button class="minus">-</button>
+        <span class="qty">1</span>
+        <button class="plus">+</button>
+      </div>
+
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
