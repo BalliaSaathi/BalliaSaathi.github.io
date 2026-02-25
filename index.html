@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+    <!-- ================= META AUR TITLE SECTION ================= -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ballia Saathi | Official Super App</title>
+    
+    <!-- Tailwind CSS for Styling -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
+        /* ================= BODY AUR GLOBAL STYLES ================= */
         body { 
             font-family: 'Inter', sans-serif; 
             background-color: #f8fafc;
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* Pages ko hide/show karne ke liye transition */
         .page { display: none; }
         .page.active { display: block; animation: fadeIn 0.3s ease-out; }
 
@@ -22,6 +28,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* iOS style blur effect Header ke liye */
         .ios-header {
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(20px);
@@ -30,6 +37,7 @@
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
 
+        /* AI Button ki chamak (Animation) */
         @keyframes pulse-emerald {
             0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
             70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
@@ -37,8 +45,10 @@
         }
         .ai-pulse { animation: pulse-emerald 2s infinite; }
 
+        /* Banner slider ke liye smooth transition */
         #bannerSlider { transition: transform 0.5s ease-in-out; }
         
+        /* Product cards ki styling */
         .product-card {
             transition: transform 0.2s;
         }
@@ -53,7 +63,7 @@
             border-radius: 1.5rem;
         }
         
-        /* Mobile horizontal scroll for categories */
+        /* ================= MOBILE VIEW CATEGORY BAR (Horizontal Scroll) ================= */
         @media (max-width: 768px) {
             .cat-bar {
                 display: flex;
@@ -78,32 +88,38 @@
 </head>
 <body class="text-slate-900">
 
-    <!-- Header Navigation -->
+    <!-- ================= TOP NAVIGATION BAR (Logo, Back, Cart, Admin) ================= -->
     <header class="fixed top-0 w-full z-50 ios-header border-b border-slate-100 px-4 py-3 h-14 flex items-center justify-between">
         <div class="flex items-center gap-2">
+            <!-- Back Button (iPhone style) -->
             <button id="backBtn" onclick="goBack()" class="hidden p-2 -ml-2 text-emerald-600 font-bold flex items-center gap-1">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
                 <span class="text-sm">Back</span>
             </button>
+            <!-- SITE LOGO / NAME -->
             <span id="brandLabel" class="font-bold text-xl text-emerald-700 tracking-tight">Ballia Saathi</span>
         </div>
         <div class="flex items-center gap-3">
+            <!-- Cart Icon with Badge -->
             <button onclick="navigateTo('cart-page')" class="relative p-2 bg-slate-100 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 118 0m-4 8a2 2 0 110-4 2 2 0 010 4zm-8 8a2 2 0 110-4 2 2 0 010 4zm-4-8a2 2 0 110-4 2 2 0 010 4zm0 0V7a4 4 0 018 0v4h-8z" /></svg>
                 <span id="cartCountBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full hidden">0</span>
             </button>
+            <!-- Admin Dashboard Icon -->
             <button onclick="toggleOwnerView()" class="p-2 bg-slate-100 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
             </button>
         </div>
     </header>
 
-    <!-- VIEW 1: HOME PAGE -->
+    <!-- ================= VIEW 1: HOME PAGE (Banners aur Main Categories) ================= -->
     <div id="category-view" class="page active pt-14 pb-10">
-        <!-- Banner Slider -->
+        
+        <!-- AUTO SWAPPING BANNERS (Grocery, Medicine, Ride) -->
         <div class="px-4 py-4 overflow-hidden relative">
             <div class="relative w-full h-44 rounded-[2.5rem] overflow-hidden shadow-lg bg-white">
                 <div id="bannerSlider" class="flex h-full w-full">
+                    <!-- Banner: Emergency Medicine -->
                     <div onclick="openEmergencyMedicine()" class="min-w-full bg-red-600 flex items-center p-8 text-white relative cursor-pointer">
                         <div class="z-10">
                             <h3 class="text-2xl font-bold">Emergency Meds</h3>
@@ -112,6 +128,7 @@
                         </div>
                         <img src="https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=400" class="absolute right-0 top-0 h-full w-1/2 object-cover opacity-50">
                     </div>
+                    <!-- Banner: Grocery -->
                     <div onclick="navigateTo('product-view'); selectCategory('anaj');" class="min-w-full bg-emerald-600 flex items-center p-8 text-white relative cursor-pointer">
                         <div class="z-10">
                             <h3 class="text-2xl font-bold">Grocery Store</h3>
@@ -120,6 +137,7 @@
                         </div>
                         <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=400" class="absolute right-0 top-0 h-full w-1/2 object-cover opacity-50">
                     </div>
+                    <!-- Banner: Ride Booking -->
                     <div onclick="navigateTo('ride-view')" class="min-w-full bg-indigo-600 flex items-center p-8 text-white relative cursor-pointer">
                         <div class="z-10">
                             <h3 class="text-2xl font-bold">Ballia Ride</h3>
@@ -132,54 +150,64 @@
             </div>
         </div>
 
-        <!-- Categories Grid -->
+        <!-- MAIN CATEGORY GRID (Medicine, Namkeen, etc.) -->
         <div class="px-4">
             <h2 class="text-xl font-bold mb-4">Top Categories</h2>
-            <div id="categoryGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+            <div id="categoryGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- JS se render hoga -->
+            </div>
         </div>
     </div>
 
-    <!-- VIEW 2: PRODUCT LIST (Responsive) -->
+    <!-- ================= VIEW 2: PRODUCT LIST (Items Display Page) ================= -->
     <div id="product-view" class="page pt-14">
         <div class="flex flex-col md:flex-row">
-            <!-- Sidebar/Top Navigation -->
-            <div id="sidebarItems" class="cat-bar md:w-64 md:flex-col md:fixed md:h-screen md:border-r md:pt-4 md:bg-white md:px-4 md:gap-4 no-scrollbar"></div>
+            
+            <!-- SIDEBAR (Desktop) / TOP BAR (Mobile) CATEGORY LIST -->
+            <div id="sidebarItems" class="cat-bar md:w-64 md:flex-col md:fixed md:h-screen md:border-r md:pt-4 md:bg-white md:px-4 md:gap-4 no-scrollbar">
+                <!-- Category Buttons yahan aayenge -->
+            </div>
             
             <main class="flex-1 md:ml-64 p-4 md:p-8 pb-32">
-                <!-- Advanced Search Bar -->
+                <!-- SEARCH BAR (Items filter karne ke liye) -->
                 <div class="mb-6 relative">
                     <input type="text" id="itemSearch" onkeyup="filterProducts()" placeholder="Dhoondhein (Paracetamol, Bhujia, Aashirvaad)..." class="w-full p-4 pl-12 bg-white border border-slate-200 rounded-[1.5rem] shadow-sm outline-none focus:ring-2 focus:ring-emerald-500">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 absolute left-4 top-4.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                 </div>
 
-                <!-- Medicine Upload (Dynamic) -->
+                <!-- MEDICINE UPLOAD BOX (Sirf Medicine category mein dikhega) -->
                 <div id="medUploadSection" class="hidden mb-6 bg-red-50 p-6 rounded-[2rem] border border-red-100 text-center">
                     <p class="text-sm text-red-700 font-bold mb-3">Upload Medical Prescription (Dawa ka Parcha)</p>
                     <button class="bg-red-600 text-white px-8 py-3 rounded-2xl font-bold shadow-lg">Upload Photo</button>
                 </div>
 
+                <!-- PRODUCT GRID (Asli Items yahan dikhengi) -->
                 <h2 id="viewCategoryTitle" class="text-xl font-bold mb-6 text-emerald-800 uppercase tracking-widest">Items</h2>
-                <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Cards JS se generate honge -->
+                </div>
             </main>
         </div>
     </div>
 
-    <!-- VIEW 3: CART PAGE -->
+    <!-- ================= VIEW 3: CART PAGE (Selected Items) ================= -->
     <div id="cart-page" class="page pt-20 px-4 pb-32">
         <div class="max-w-2xl mx-auto">
             <h2 class="text-2xl font-bold mb-6">Aapka Cart</h2>
             
-            <!-- AI Chef Tool -->
+            <!-- AI CHEF TOOL (Recipe suggestion engine) -->
             <div id="aiRecipeTool" class="hidden mb-6 bg-emerald-50 border border-emerald-100 rounded-[2rem] p-5 shadow-sm">
                 <h3 class="font-bold text-emerald-800 mb-2 flex items-center gap-2">✨ AI Chef Suggestion</h3>
                 <div id="recipeResult" class="text-xs text-slate-600 italic leading-relaxed mb-3">Cart items se kya banayein?</div>
                 <button onclick="generateRecipe()" class="w-full py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold">Generate Recipe ✨</button>
             </div>
 
+            <!-- List of Selected Items in Cart -->
             <div id="cartList" class="space-y-4"></div>
             <div id="emptyCart" class="text-center py-20 hidden text-slate-400">Cart khaali hai. Kuch add karein!</div>
         </div>
 
+        <!-- STICKY FOOTER (Total Amount & Checkout Button) -->
         <div id="cartStickyFooter" class="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-100 hidden z-50">
             <div class="max-w-md mx-auto flex items-center justify-between gap-4">
                 <div><p class="text-[10px] text-slate-400 uppercase font-bold">Total Bill</p><p class="font-bold text-xl text-emerald-700">₹<span id="cartFooterTotal">0</span></p></div>
@@ -188,40 +216,42 @@
         </div>
     </div>
 
-    <!-- VIEW 4: RIDE BOOKING -->
+    <!-- ================= VIEW 4: RIDE BOOKING PAGE ================= -->
     <div id="ride-view" class="page pt-20 px-4">
         <div class="max-w-md mx-auto">
             <h2 class="text-2xl font-bold mb-6 text-center">Book Your Ride 🚖</h2>
             <form onsubmit="confirmRide(); return false;" class="space-y-4">
                 <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 space-y-4">
+                    <!-- Pickup Selection -->
                     <div>
                         <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block ml-2">Pickup Point</label>
-                        <select class="w-full p-4 bg-slate-50 border-none rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500">
+                        <select class="w-full p-4 bg-slate-50 border-none rounded-2xl outline-none">
                             <option>Ballia Bus Stand</option>
                             <option>Railway Station Ballia</option>
                             <option>Bhrigu Mandir Area</option>
-                            <option>Hospital Road</option>
-                            <option>Custom Location</option>
                         </select>
                     </div>
+                    <!-- Dropoff Input -->
                     <div>
                         <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block ml-2">Dropoff Point</label>
-                        <input type="text" placeholder="Kahan jana hai?" required class="w-full p-4 bg-slate-50 border-none rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500">
+                        <input type="text" placeholder="Kahan jana hai?" required class="w-full p-4 bg-slate-50 border-none rounded-2xl outline-none">
                     </div>
                 </div>
+                <!-- Google Maps Preview -->
                 <div class="h-44 rounded-[2rem] bg-slate-200 overflow-hidden relative shadow-inner border-4 border-white">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14349.52303498835!2d84.1458!3d25.7617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3992095f4c585c5d%3A0xc3f2409c2a792476!2sBallia%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" class="w-full h-full border-none grayscale"></iframe>
                 </div>
-                <button type="submit" class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold text-lg shadow-xl active:scale-95 transition-all">Find Drivers Near Me</button>
+                <button type="submit" class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold text-lg shadow-xl">Find Drivers</button>
             </form>
         </div>
     </div>
 
-    <!-- VIEW 5: CHECKOUT & PAYMENT (Merged logic) -->
+    <!-- ================= VIEW 5: CHECKOUT & PAYMENT PAGE ================= -->
     <div id="checkout-page" class="page pt-20 px-4 pb-10">
         <div class="max-w-md mx-auto">
             <h2 class="text-2xl font-bold mb-6">Final Order Details</h2>
             <form onsubmit="processOrder(event)" class="space-y-4">
+                <!-- Address Form -->
                 <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-50 space-y-4">
                     <input type="text" id="custName" placeholder="Naam" required class="w-full p-4 bg-slate-50 border-none rounded-2xl">
                     <input type="tel" id="custMob" placeholder="Mobile Number" required class="w-full p-4 bg-slate-50 border-none rounded-2xl">
@@ -229,6 +259,7 @@
                     <textarea id="custDesc" placeholder="Full Address..." required class="w-full p-4 bg-slate-50 border-none rounded-2xl h-24"></textarea>
                 </div>
 
+                <!-- Final Bill Summary Section -->
                 <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-50">
                     <h3 class="font-bold text-lg mb-4">Summary Bill</h3>
                     <div id="summaryItems" class="space-y-2 text-sm text-slate-500 mb-4"></div>
@@ -239,11 +270,12 @@
                     </div>
                 </div>
 
+                <!-- Payment Methods -->
                 <div class="grid grid-cols-2 gap-4">
                     <button type="button" onclick="setPayMethod('COD')" id="btnCOD" class="p-4 rounded-2xl border-2 border-emerald-600 bg-emerald-50 font-bold text-emerald-700">Cash</button>
                     <button type="button" onclick="setPayMethod('UPI')" id="btnUPI" class="p-4 rounded-2xl border-2 border-slate-100 bg-white font-bold">UPI</button>
                 </div>
-                
+                <!-- UPI input (Hidden by default) -->
                 <input type="text" id="upiIn" placeholder="UPI ID (for bill generation)" class="hidden w-full p-4 bg-white border border-indigo-200 rounded-2xl outline-none">
 
                 <button type="submit" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold text-lg shadow-xl active:scale-95">Confirm & Order Now</button>
@@ -251,13 +283,13 @@
         </div>
     </div>
 
-    <!-- AI Floating Assistant -->
+    <!-- ================= FLOATING AI ASSISTANT (Chatbot) ================= -->
     <button onclick="toggleAi()" class="fixed bottom-6 right-6 w-14 h-14 bg-emerald-600 text-white rounded-full shadow-2xl z-[100] flex items-center justify-center ai-pulse">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
     </button>
     <div id="aiModal" class="fixed inset-0 bg-black/40 backdrop-blur z-[110] hidden flex items-end p-4">
         <div class="bg-white w-full max-w-md rounded-t-[2.5rem] p-6 shadow-2xl">
-            <h2 class="font-bold text-lg mb-4 flex items-center gap-2">✨ Ballia Saathi AI Help</h2>
+            <h2 class="font-bold text-lg mb-4 flex items-center gap-2">✨ AI Shopping Saathi</h2>
             <div id="aiChat" class="h-44 overflow-y-auto mb-4 p-4 bg-slate-50 rounded-2xl text-sm no-scrollbar">
                 <div class="bg-emerald-100 p-3 rounded-2xl mb-2 text-emerald-800">Namaste! Main items select karne aur recipe batane mein help kar sakta hoon.</div>
             </div>
@@ -268,22 +300,32 @@
         </div>
     </div>
 
-    <!-- Owner Secret View -->
+    <!-- ================= VIEW: OWNER DASHBOARD (Secret Panel) ================= -->
     <div id="owner-view" class="page pt-20 px-4">
-        <div class="max-w-4xl mx-auto"><h2 class="text-2xl font-bold mb-6 italic">Admin Dashboard</h2><div id="orderLog" class="grid gap-4"></div></div>
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold mb-6 italic">Admin Dashboard</h2>
+            <div id="orderLog" class="grid gap-4">
+                <!-- Orders yahan list honge -->
+            </div>
+        </div>
     </div>
 
-    <!-- Overlay Loader -->
+    <!-- ================= GLOBAL OVERLAY LOADER ================= -->
     <div id="loader" class="fixed inset-0 bg-white/90 z-[120] hidden flex items-center justify-center text-center">
-        <div><div class="w-12 h-12 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div><p id="loaderText" class="font-bold italic">Processing...</p></div>
+        <div>
+            <div class="w-12 h-12 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p id="loaderText" class="font-bold italic text-emerald-700">Processing...</p>
+        </div>
     </div>
 
+    <!-- ================= JAVASCRIPT LOGIC START ================= -->
     <script>
+        // --- API aur Configuration ---
         const apiKey = "";
         const DELIVERY_CHARGE = 40;
         const OWNER_UPI = "9580009550@paytm";
         
-        // Data Collections
+        // --- CATEGORIES DATA (Home Page Cards) ---
         const categories = [
             { id: "medicine", name: "Medicine", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=300" },
             { id: "namkeen", name: "Namkeen", img: "https://images.unsplash.com/photo-1613919113166-79b7b48a6031?auto=format&fit=crop&w=300" },
@@ -293,8 +335,8 @@
             { id: "spices", name: "Spices", img: "https://images.unsplash.com/photo-1532336414038-cf19250c5757?auto=format&fit=crop&w=300" }
         ];
 
+        // --- PRODUCTS DATA (50+ varieties per section) ---
         const products = [];
-        // Generating 50 varieties for each as requested
         for(let i=1; i<=50; i++) {
             products.push({ id: 100+i, name: `Medicine ${i} Tablet`, price: 20+i, cat: "medicine", img: `https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=150&sig=${100+i}` });
             products.push({ id: 200+i, name: `Namkeen Brand ${i} Special`, price: 10+i, cat: "namkeen", img: `https://images.unsplash.com/photo-1613919113166-79b7b48a6031?auto=format&fit=crop&q=80&w=150&sig=${200+i}` });
@@ -303,18 +345,18 @@
         products.push({ id: 999, name: "Amul Gold 1L", price: 66, cat: "dudh", img: "https://images.unsplash.com/photo-1550583724-1255818c053b?auto=format&fit=crop&w=150" });
         products.push({ id: 888, name: "Aashirvaad Atta 5kg", price: 235, cat: "anaj", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=150" });
 
-        // State
+        // --- APP STATE (Cart, History, Active Category) ---
         let cart = {}, historyView = ['category-view'], currentCatId = "namkeen", bannerIdx = 0, activePayMode = 'COD';
         let orders = JSON.parse(localStorage.getItem('ballia_orders_prod') || '[]');
 
-        // Banner
+        // --- BANNER SLIDER LOGIC ---
         setInterval(() => {
             bannerIdx = (bannerIdx + 1) % 3;
             const slider = document.getElementById('bannerSlider');
             if(slider) slider.style.transform = `translateX(-${bannerIdx * 100}%)`;
         }, 3000);
 
-        // UI Handlers
+        // --- PAGE NAVIGATION LOGIC (History and Views) ---
         function navigateTo(id, isBack = false) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const target = document.getElementById(id);
@@ -326,11 +368,14 @@
             
             if(id === 'cart-page') renderCart();
             if(id === 'checkout-page') renderBillSummary();
+            if(id === 'owner-view') renderDashboard();
+            window.scrollTo(0,0);
         }
 
         function goBack() { if(historyView.length > 1) { historyView.pop(); navigateTo(historyView[historyView.length - 1], true); } }
         function openEmergencyMedicine() { navigateTo('product-view'); selectCategory('medicine'); }
 
+        // --- CATEGORY SELECTION AUR RENDERING ---
         function selectCategory(cid) {
             currentCatId = cid;
             document.getElementById('medUploadSection').classList.toggle('hidden', cid !== 'medicine');
@@ -348,6 +393,7 @@
             if(!document.getElementById('product-view').classList.contains('active')) navigateTo('product-view');
         }
 
+        // --- SEARCH AUR PRODUCT LIST LOGIC ---
         function filterProducts() {
             const query = document.getElementById('itemSearch').value.toLowerCase();
             const grid = document.getElementById('productGrid');
@@ -355,25 +401,31 @@
             grid.innerHTML = filtered.map(p => `
                 <div class="product-card bg-white p-4 rounded-[2rem] border border-slate-50 shadow-sm flex flex-col items-center">
                     <img src="${p.img}" onerror="this.src='https://via.placeholder.com/150?text=Product'">
-                    <div class="w-full mt-3"><p class="font-bold text-sm h-10 overflow-hidden">${p.name}</p>
+                    <div class="w-full mt-3"><p class="font-bold text-sm h-10 overflow-hidden text-slate-800">${p.name}</p>
                     <div class="flex justify-between items-center mt-2"><p class="text-emerald-600 font-bold">₹${p.price}</p><div id="ctrl-${p.id}">${qtyCtrl(p)}</div></div></div>
                 </div>
             `).join('');
         }
 
+        // --- CART CONTROLS (+/- Buttons) ---
         function qtyCtrl(p) {
             const q = cart[p.id] || 0;
             if(q === 0) return `<button onclick="updateCart(${p.id}, 1)" class="bg-emerald-50 text-emerald-600 px-4 py-1 rounded-xl font-bold border border-emerald-100">Add</button>`;
             return `<div class="flex items-center bg-emerald-600 rounded-xl p-1 gap-4 text-white"><button onclick="updateCart(${p.id},-1)" class="w-6 h-6">-</button><span class="font-bold text-xs">${q}</span><button onclick="updateCart(${p.id},1)" class="w-6 h-6">+</button></div>`;
         }
 
+        // --- CART UPDATE AUR CALCULATION LOGIC (Multiply quantity x price) ---
         function updateCart(id, ch) {
             cart[id] = (cart[id] || 0) + ch; if(cart[id] <= 0) delete cart[id];
             const p = products.find(i => i.id == id);
             const ctrl = document.getElementById(`ctrl-${id}`); if(ctrl) ctrl.innerHTML = qtyCtrl(p);
             
             let total = 0, count = 0;
-            for(let k in cart) { const pr = products.find(i => i.id == k); count += cart[k]; total += (pr.price * cart[k]); }
+            for(let k in cart) { 
+                const pr = products.find(i => i.id == k); 
+                count += cart[k]; 
+                total += (pr.price * cart[k]); // Correct Multiplication
+            }
             document.getElementById('cartCountBadge').innerText = count;
             document.getElementById('cartCountBadge').classList.toggle('hidden', count === 0);
             
@@ -382,6 +434,7 @@
             if(document.getElementById('cart-page').classList.contains('active')) renderCart();
         }
 
+        // --- CART PAGE DISPLAY ---
         function renderCart() {
             const list = document.getElementById('cartList'), entries = Object.entries(cart);
             document.getElementById('emptyCart').classList.toggle('hidden', entries.length > 0);
@@ -395,6 +448,7 @@
             }).join('');
         }
 
+        // --- BILL SUMMARY FOR CHECKOUT ---
         function renderBillSummary() {
             let sub = 0; const list = document.getElementById('summaryItems');
             list.innerHTML = Object.entries(cart).map(([id, q]) => {
@@ -405,6 +459,7 @@
             document.getElementById('billGrandTotal').innerText = "₹"+(sub + DELIVERY_CHARGE);
         }
 
+        // --- GEMINI AI HELPER FUNCTIONS ---
         async function aiCall(p, s) {
             try {
                 const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
@@ -421,6 +476,7 @@
             res.innerText = await aiCall(`Items: ${items}. Ek short recipe do.`, "Aap Ballia Saathi ke Chef hain. Hindi (Latin) mein response dein.");
         }
 
+        // --- AI ASSISTANT TOGGLE AUR CHAT ---
         function toggleAi() { document.getElementById('aiModal').classList.toggle('hidden'); }
         async function askAi() {
             const i = document.getElementById('aiIn'), c = document.getElementById('aiChat'); if(!i.value) return;
@@ -430,6 +486,7 @@
             c.scrollTop = c.scrollHeight;
         }
 
+        // --- ORDER PROCESS AUR DASHBOARD LOGIC ---
         function setPayMethod(m) {
             activePayMode = m;
             document.getElementById('btnCOD').className = m === 'COD' ? "p-4 rounded-2xl border-2 border-emerald-600 bg-emerald-50 font-bold text-emerald-700" : "p-4 rounded-2xl border-2 border-slate-100 bg-white font-bold";
@@ -448,7 +505,7 @@
             }, 2000);
         }
 
-        function confirmRide() { alert("Driver Search Result: Taxi 4 min mein Bus Stand Ballia pahunch rahi hai. Ride Confirmed!"); location.reload(); }
+        function confirmRide() { alert("Taxi search results: Taxi 4 min mein Bus Stand Ballia pahunch rahi hai. Ride Confirmed!"); location.reload(); }
         function toggleOwnerView() { if(prompt("Admin PIN?") === "1234") navigateTo('owner-view'); }
         function renderDashboard() {
             document.getElementById('orderLog').innerHTML = orders.map(o => `
@@ -459,12 +516,13 @@
             `).join('');
         }
 
+        // --- INITIAL LOAD (Page open hone par sabse pehle ye chalega) ---
         window.onload = () => {
             const grid = document.getElementById('categoryGrid');
             grid.innerHTML = categories.map(c => `
                 <div onclick="selectCategory('${c.id}')" class="bg-white p-5 rounded-[2.5rem] border border-slate-100 text-center active:scale-95 transition-all shadow-sm">
                     <img src="${c.img}" class="w-full h-24 object-cover rounded-3xl mb-3 shadow-inner">
-                    <p class="font-bold text-sm">${c.name}</p>
+                    <p class="font-bold text-sm text-slate-800">${c.name}</p>
                 </div>
             `).join('');
         };
